@@ -5,7 +5,7 @@
         v-icon mdi-plus
       v-card-title.justify-center Редактирование новостей
         v-spacer
-        v-btn(color='#a25161' small='' dark='' right='' tile='' @click="").ml-5 Добавить
+        v-btn(color='#a25161' small='' dark='' right='' tile='' @click="showNews").ml-5 Добавить
           v-icon mdi-comment-plus-outline
       v-divider
       v-row
@@ -43,12 +43,14 @@
                 | Отмена
               v-btn(color="red darken-4" text='' @click='dialog = false; remove(idNews)')
                 | Удалить
-
+    add-news(ref="AddNews")
 </template>
 
 <script>
+import AddNews from "./AddNews";
 export default {
   name: "EditNews",
+  components: {AddNews},
   data: () => ({
     news: [
     ],
@@ -63,7 +65,10 @@ export default {
     remove(id){
       console.log(this.news.indexOf(id));
       this.news.splice(this.news.indexOf(id),1);
-    }
+    },
+    showNews(){
+      this.$refs.AddNews.showDialog();
+    },
   },
   mounted() {
     for(let i = 1; i<=10; i++){
