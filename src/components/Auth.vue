@@ -20,7 +20,7 @@
 </template>
 
 <script>
-import Api from "@/service/apiService";
+// import Api from "@/service/apiService";
 export default {
   name: "Auth",
   data() {
@@ -39,14 +39,15 @@ export default {
         }
       };
       console.log(user);
-      Api.auth(user).then(value => {
-            console.log(value);
-            this.$router.push('/edit');
-          },
-          () => {
-            console.log('Ошибка');
-            this.$router.push('/edit');
-          });
+      // Api.auth(user).then(value => {
+      //       console.log(value);
+      //       this.$router.push('/edit');
+      //     },
+      //     () => {
+      //       console.log('Ошибка');
+      //       this.$router.push('/edit');
+      //     });
+      this.$router.push('/edit');
     }
   }
 }

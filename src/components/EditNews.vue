@@ -25,7 +25,7 @@
                 | Изменить
               //v-btn(text='' color='red darken-4' @click="deleteNews(newses.indexOf(news))")
               v-spacer
-              v-btn(text='' color='red darken-4' @click="dialog = true; idNews = newses.id")
+              v-btn(text='' color='red darken-4' @click="dialog = true; idNews = newses")
                 | Удалить
             //change-news(ref="ChangeNews" :NewsSrc="newses" @update = "getAllNews")
 
@@ -61,7 +61,8 @@ export default {
       console.log(this.news);
     },
     remove(id){
-      this.news.splice(id,1);
+      console.log(this.news.indexOf(id));
+      this.news.splice(this.news.indexOf(id),1);
     }
   },
   mounted() {
