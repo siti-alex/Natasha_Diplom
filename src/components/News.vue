@@ -34,7 +34,7 @@ export default {
   },
   mounted() {
     for(let i = 1; i<=10; i++){
-      let obj = {title: 'Добро пожаловать', date: `${i}.05.2022`, id: i, text: 'Тестовая запись'}
+      let obj = {title: this.$root.title, date: `${i}.05.2022`, id: i, text: this.$root.text}
       this.news.push(obj)
     }
   }

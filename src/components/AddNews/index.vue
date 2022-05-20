@@ -9,7 +9,7 @@ div
           v-spacer
           v-toolbar-items
             v-btn(dark='' text='' @click='uploadNews' v-if="!radioGroup" :loading="loadBtn") Сохранить
-            v-btn(dark='' text='' @click='uploadEvent' v-if="radioGroup" :loading="loadBtn") Сохранить
+            v-btn(dark='' text='' @click='uploadNews' v-if="radioGroup" :loading="loadBtn") Сохранить
         v-divider
         v-row(no-gutters='').mx-5.mt-3
           v-col(cols='4')
@@ -44,7 +44,7 @@ div
 
           br
           v-col(cols='8')
-            a-c-m-s(v-model="newPost.html" height="650" v-if="dialog")
+            a-c-m-s(v-model="newPost.fullText" height="650" v-if="dialog")
 
 </template>
 
@@ -74,8 +74,8 @@ name: "AddNews",
     newPost: {
       title: '',
       text: 'Текст',
-      img: null,
-      html: '',
+      img: 'https://www.amurobl.ru/upload/iblock/5e2/image_21_08_20_02_41_5.jpeg',
+      fullText: '',
     },
     //html: '',
   }),
@@ -91,49 +91,34 @@ name: "AddNews",
       this.newPost.img = null;
       this.newPost.text = 'Текст';
       this.newPost.title = '';
-      this.newPost.html = '';
+      this.newPost.fullText = '';
     },
     test(){
       console.log(this.newPost.html);
     },
     uploadNews(){
-        this.loadBtn = true;
-      console.log(this.newPost);
-      let formdata = new FormData();
-      formdata.append("head", this.newPost.title);
-      formdata.append("previewText", this.newPost.text);
-      formdata.append("fullText", this.newPost.html);
-      formdata.append("file", this.newPost.img);
-      // Api.setNews(formdata).then(() => {
-      //   //console.log(result.data);
-      //   //this.dialog = !this.dialog;
-      //   //this.newPost.img = `http://213.87.96.9:6006/news/getImage?id=${result.data}`
-      //   this.$emit('update');
-      //   this.loadBtn = false;
-      //   this.showDialog();
-      // });
-      this.loadBtn = false;
+      this.$emit('insertNews', this.newPost);
       this.showDialog();
     },
-    uploadEvent(){
-        this.loadBtn = true;
-      console.log("Я мероприятие");
-      let formdata = new FormData();
-      formdata.append("head", this.newPost.title);
-      formdata.append("previewText", this.newPost.text);
-      formdata.append("fullText", this.newPost.html);
-      formdata.append("file", this.newPost.img);
-      formdata.append("date", this.date);
-      // Api.uploadEvent(formdata).then((result) => {
-      //   console.log(result);
-      //   //this.dialog = !this.dialog;
-      //   //this.newPost.img = `http://213.87.96.9:6006/news/getImage?id=${result.data}`
-      //     this.loadBtn = false;
-      //   this.showDialog();
-      // });
-      this.loadBtn = false;
-      this.showDialog();
-    },
+    // uploadEvent(){
+    //     this.loadBtn = true;
+    //   console.log("Я мероприятие");
+    //   let formdata = new FormData();
+    //   formdata.append("head", this.newPost.title);
+    //   formdata.append("previewText", this.newPost.text);
+    //   formdata.append("fullText", this.newPost.html);
+    //   formdata.append("file", this.newPost.img);
+    //   formdata.append("date", this.date);
+    //   // Api.uploadEvent(formdata).then((result) => {
+    //   //   console.log(result);
+    //   //   //this.dialog = !this.dialog;
+    //   //   //this.newPost.img = `http://213.87.96.9:6006/news/getImage?id=${result.data}`
+    //   //     this.loadBtn = false;
+    //   //   this.showDialog();
+    //   // });
+    //   this.loadBtn = false;
+    //   this.showDialog();
+    // },
   }
 }
 </script>

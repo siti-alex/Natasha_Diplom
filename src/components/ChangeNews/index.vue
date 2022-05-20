@@ -1,7 +1,7 @@
 <template lang="pug">
   div
     v-dialog(v-model='dialog' fullscreen='' hide-overlay='' transition='dialog-bottom-transition')
-      v-card
+      v-card(v-if="NewsSrc" )
         v-toolbar(dark='' color="#8b2639")
           v-btn(icon='' dark='' @click='showDialog()')
             v-icon mdi-close
@@ -15,14 +15,14 @@
           v-col(cols='4')
             v-divider
             v-card(outlined='' elevation="19" tile='').pa-3.mx-3.mt-3
-              v-img.white--text.align-end(height='200px' :src='serverIp+`/image/public/`+NewsSrc.image.id' v-if="NewsSrc.image")
+              v-img.white--text.align-end(height='200px' src="https://www.amurobl.ru/upload/iblock/5e2/image_21_08_20_02_41_5.jpeg")
                 v-card-title
-                  v-text-field(label="Заголовок" dark='' v-model="NewsSrc.head").title
+                  v-text-field(label="Заголовок" dark='' v-model="NewsSrc.title").title
               v-card-subtitle().pb-0
                 | {{NewsSrc.date}}
               v-card-text.pa-0.text--primary
                 v-divider
-                v-textarea(auto-grow='' value='Текст' v-model="NewsSrc.previewText" autofocus='')
+                v-textarea(auto-grow='' value='Текст' v-model="NewsSrc.text" autofocus='')
               v-divider
 
           br
@@ -33,7 +33,8 @@
 <script>
 import Api from '@/service/apiService';
 import { McWysiwyg } from '@mycure/vue-wysiwyg';
-import ACMS from "@/views/ACMS/index";
+import ACMS from "../ACMS";
+
 
 export default {
   components: {
@@ -56,20 +57,22 @@ name: "ChangeNews",
       //console.log(this.NewsSrc);
     },
     uploadNews(){
-        this.loadBtn = true;
-      let formdata = new FormData();
-      formdata.append("head", this.NewsSrc.head);
-      formdata.append("previewText", this.NewsSrc.previewText);
-      formdata.append("fullText", this.NewsSrc.fullText);
-      formdata.append("id", this.NewsSrc.id);
-      Api.ChangeNews(formdata,this.NewsSrc.id).then(() => {
-        this.$emit('update');
-        this.loadBtn = false;
-        this.dialog = !this.dialog;
-      });
+      //   this.loadBtn = true;
+      // let formdata = new FormData();
+      // formdata.append("head", this.NewsSrc.head);
+      // formdata.append("previewText", this.NewsSrc.previewText);
+      // formdata.append("fullText", this.NewsSrc.fullText);
+      // formdata.append("id", this.NewsSrc.id);
+      // Api.ChangeNews(formdata,this.NewsSrc.id).then(() => {
+      //   this.$emit('update');
+      //   this.loadBtn = false;
+      //   this.dialog = !this.dialog;
+      // });
+      this.$emit('insertNews', this.NewsSrc);
+      this.showDialog();
 
     },
-  }
+  },
 }
 </script>
 

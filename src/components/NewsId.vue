@@ -4,7 +4,7 @@
       v-divider
       v-card-title(style="margin-top: 20px").justify-center {{title}}
       v-divider
-      v-sheet(width='90%' height='100%' v-html="text").mx-auto.mt-5.mb-5
+      v-sheet(width='90%' height='100%' v-html="fullText").mx-auto.mt-5.mb-5
 
       br
       //div(v-html="text")
@@ -16,27 +16,31 @@
 </template>
 
 <script>
-import axios from 'axios'
+// import axios from 'axios'
 export default {
   name: "NewsId",
   data: () => ({
-    text: null,
+    // text: null,
     title: null,
+    fullText: null,
   }),
   methods: {
 
-    getText(){
-      const url = 'https://cms.lit.bgpu.ru/public/get/public/codo-site/olymp-courses/';
-      axios.get(url).then(result => {
-        console.log(result);
-        this.text= result.data.htmlCode;
-        this.title= result.data.title;
-      })
-    },
+    // getText(){
+    //   const url = 'https://cms.lit.bgpu.ru/public/get/public/codo-site/olymp-courses/';
+    //   axios.get(url).then(result => {
+    //     console.log(result);
+    //     this.text= result.data.htmlCode;
+    //     this.title= result.data.title;
+    //   })
+    // },
   },
   mounted() {
     //console.log(this.$route.params.id);
-    this.getText();
+    // this.getText();
+    this.text = this.$root.text
+    this.title = this.$root.title
+    this.fullText = this.$root.fullText
   }
 }
 </script>
